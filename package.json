@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-and-express-app",
+  "version": "1.0.0",
+  "description": "Simple knowledgebase app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrsoroush/Nodejs-and-Express-app.git"
+  },
+  "author": "Mr.soroush",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrsoroush/Nodejs-and-Express-app/issues"
+  },
+  "homepage": "https://github.com/mrsoroush/Nodejs-and-Express-app#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pug": "^2.0.3"
+  }
+}
