@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/nodekb');
+mongoose.connect('mongodb://localhost/nodekb', { useNewUrlParser: true });
 let db = mongoose.connection;
 
 // Check connection
@@ -25,6 +26,12 @@ let Articles = require('./models/articles');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//Body parser middleware
+// parse application/x-www-form-urlencode
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+
 // Home route
 app.get('/', (req, res) => {
     Articles.find({}, (err, articles) => {
@@ -43,6 +50,23 @@ app.get('/', (req, res) => {
 app.get('/articles/add', (req, res) => {
     res.render('add_article', {
         title: 'Add Articles'
+    });
+});
+
+// Add submit POST route
+app.post('/articles/add', (req, res) => {
+    let article = new Articles();
+    article.title = req.body.title;
+    article.author = req.body.author;
+    article.body = req.body.body;
+
+    article.save((err) => {
+        if(err) {
+            console.log(err);
+            return;
+        } else {
+            res.redirect('/');
+        }
     });
 });
 
